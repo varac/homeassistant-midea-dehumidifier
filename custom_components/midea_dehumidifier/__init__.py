@@ -90,23 +90,23 @@ async def async_setup(hass, config):
 		
     _LOGGER.info("midea-dehumi: "+appliancesStr)
     
-    #The first appliance having type="0xA1" is returned for default (TODO: otherwise, 'deviceId' configuration option can be used)
+    #The first appliance having type="0xAC" is returned for default (TODO: otherwise, 'deviceId' configuration option can be used)
     targetDevice = None
     if not deviceId:
         if appliances is not None:
             for a in appliances:
-                if a["type"] == "0xA1":
+                if a["type"] == "0xAC":
                     deviceId = str(a["id"])
                     targetDevice = a
     else:
         if appliances is not None:
             for a in appliances:
-                if a["type"] == "0xA1" and deviceID == str(a["id"]):
+                if a["type"] == "0xAC" and deviceID == str(a["id"]):
                     targetDevice = a
 
 
     if targetDevice:
-        _LOGGER.info("midea-dehumidifier: device type 0xA1 found.")
+        _LOGGER.info("midea-dehumidifier: device type 0xAC found.")
 
         hass.data[MIDEA_API_CLIENT] = client
         _LOGGER.info("midea-dehumidifier: loading humidifier entity sub-component...")
@@ -118,5 +118,5 @@ async def async_setup(hass, config):
         _LOGGER.info("midea_dehumidifier: platform successfuly initialized.")
         return True
     else:
-        _LOGGER.error("midea-dehumidifier: device type 0xA1 not found.")
+        _LOGGER.error("midea-dehumidifier: device type 0xAC not found.")
         return False
